@@ -21,13 +21,29 @@ var DATA = {
   ]
 };
 
+var menuItems = DATA.items
+                                          .filter( item => item.type === 'mexican')
+                                          .sort( (item1, item2) => {
+                                            if( item1.name < item2.name )  return -1;
+                                            if( item1.name > item2.name ) return 1;
+                                            return 0;
+                                          })
+                                          .map( item => <li>Name: {item.name}, Type: {item.type}</li>);
+
 var Menu = React.createClass({
+
   render () {
-    return null;
+    return (
+      <div className = "menu">
+        <h1>{DATA.title}</h1>
+        <ul>
+          { menuItems }
+        </ul>
+      </div>
+    );
   }
 });
 
 React.render(<Menu/>, document.body, () => {
   require('./tests').run();
 });
-
